@@ -2,6 +2,9 @@ import React from "react"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import { useBooking } from "../context/bookingContext" // Use the custom hook to access context
+import { fetchAPI } from "../api/fetchAPI"
+import { submitAPI } from "../api/submitAPI"
+import "./BookingForm.css" // Import the CSS file
 
 // Validation schema
 const BookingSchema = Yup.object().shape({
@@ -29,11 +32,11 @@ const BookingForm = () => {
   const onClickHandler = async (e) => {
     e.preventDefault()
     console.log("Button clicked")
-    console.log(await window.fetchAPI(new Date().toISOString().split("T")[0]))
+    console.log(await fetchAPI(new Date()))
   }
 
   return (
-    <div style={{ maxWidth: "400px", margin: "0 auto" }}>
+    <div className="form-container">
       <h2>Book a Table</h2>
 
       <Formik
@@ -47,7 +50,7 @@ const BookingForm = () => {
         onSubmit={handleSubmit}
       >
         {({ values, setFieldValue }) => (
-          <Form style={{ display: "grid", gap: "20px" }}>
+          <Form>
             {/* Date Field */}
             <label htmlFor="date">Choose date</label>
             <Field
@@ -62,7 +65,7 @@ const BookingForm = () => {
             <ErrorMessage
               name="date"
               component="div"
-              style={{ color: "red" }}
+              className="error-message"
             />
 
             {/* Time Field */}
@@ -78,7 +81,7 @@ const BookingForm = () => {
             <ErrorMessage
               name="time"
               component="div"
-              style={{ color: "red" }}
+              className="error-message"
             />
 
             {/* Guests Field */}
@@ -87,7 +90,7 @@ const BookingForm = () => {
             <ErrorMessage
               name="guests"
               component="div"
-              style={{ color: "red" }}
+              className="error-message"
             />
 
             {/* Occasion Field */}
@@ -100,7 +103,7 @@ const BookingForm = () => {
             <ErrorMessage
               name="occasion"
               component="div"
-              style={{ color: "red" }}
+              className="error-message"
             />
 
             {/* Submit Button */}
@@ -108,8 +111,6 @@ const BookingForm = () => {
           </Form>
         )}
       </Formik>
-
-      <button onClick={onClickHandler}>Click me</button>
     </div>
   )
 }

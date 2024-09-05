@@ -1,22 +1,18 @@
 import { ChakraProvider } from "@chakra-ui/react"
-import Header from "./components/Header"
-import Footer from "./components/Footer"
 import { AlertProvider } from "./context/alertContext"
 import { BookingProvider } from "./context/bookingContext"
-import Alert from "./components/Alert"
-import BookingForm from "./components/BookingForm"
+import LandingPage from "./pages/LandingPage"
 
 function App() {
   return (
     <ChakraProvider>
       <BookingProvider>
         <AlertProvider>
-          <main>
-            <Header />
-            <BookingForm />
-            <Footer />
-            <Alert />
-          </main>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            {/* <Route path="/bookings" element={<BookingsPage />} />
+            <Route path="/confirmed" element={<ConfirmedBooking />} /> */}
+          </Routes>
         </AlertProvider>
       </BookingProvider>
     </ChakraProvider>
